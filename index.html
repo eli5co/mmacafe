@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMA.Cafe - Find MMA Gyms Near You</title>
+    <meta name="description" content="Discover the best MMA and martial arts gyms in your area. Search by location, style, and read reviews from other fighters.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header class="site-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <h1>MMA<span class="accent">.Cafe</span></h1>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html" class="active">Gyms</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Add Gym</a></li>
+                </ul>
+            </nav>
+            <div class="user-nav">
+                <a href="#" class="btn btn-outline">Log In</a>
+                <a href="#" class="btn btn-primary">Sign Up</a>
+            </div>
+            <button class="mobile-menu-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Find Your Perfect MMA Gym</h2>
+                <p>Discover the best training facilities near you with reviews from real fighters</p>
+                <div class="search-container">
+                    <form id="hero-search">
+                        <input type="text" placeholder="Enter city, state or zip code" class="search-input">
+                        <button type="submit" class="btn btn-primary btn-search">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Filters Section -->
+            <section class="filters-section">
+                <div class="filters-container">
+                    <h3>Filters</h3>
+                    <form id="filters-form">
+                        <div class="filter-group">
+                            <label for="state">State</label>
+                            <select id="state" name="state">
+                                <option value="">All States</option>
+                                <option value="AL">Alabama</option>
+                                <option value="AK">Alaska</option>
+                                <option value="AZ">Arizona</option>
+                                <option value="AR">Arkansas</option>
+                                <option value="CA">California</option>
+                                <option value="CO">Colorado</option>
+                                <option value="TX">Texas</option>
+                                <option value="NY">New York</option>
+                                <option value="FL">Florida</option>
+                                <!-- More states would be added in a real implementation -->
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="martial-art">Martial Art Type</label>
+                            <select id="martial-art" name="martial-art">
+                                <option value="">All Styles</option>
+                                <option value="mma">Mixed Martial Arts</option>
+                                <option value="bjj">Brazilian Jiu-Jitsu</option>
+                                <option value="muay-thai">Muay Thai</option>
+                                <option value="boxing">Boxing</option>
+                                <option value="wrestling">Wrestling</option>
+                                <option value="judo">Judo</option>
+                                <option value="karate">Karate</option>
+                                <option value="kickboxing">Kickboxing</option>
+                                <option value="taekwondo">Taekwondo</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="rating">Minimum Rating</label>
+                            <select id="rating" name="rating">
+                                <option value="">Any Rating</option>
+                                <option value="5">5 Stars</option>
+                                <option value="4">4+ Stars</option>
+                                <option value="3">3+ Stars</option>
+                                <option value="2">2+ Stars</option>
+                                <option value="1">1+ Star</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="free-trial" name="free-trial">
+                                <span class="checkbox-text">Free Trial Available</span>
+                            </label>
+                        </div>
+
+                        <div class="filter-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="open-now" name="open-now">
+                                <span class="checkbox-text">Open Now</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-filter">
+                            Apply Filters
+                        </button>
+                        <button type="reset" class="btn btn-outline btn-reset">
+                            Reset
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Listings Section -->
+            <section class="listings-section">
+                <div class="listings-header">
+                    <h3>MMA Gyms <span id="results-count">(0 results)</span></h3>
+                    <div class="view-options">
+                        <button class="view-option active" data-view="grid">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button class="view-option" data-view="list">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="listings-container grid-view" id="listings-container">
+                    <!-- Listing cards will be generated here by JavaScript -->
+                    <div class="loading-indicator">
+                        <i class="fas fa-spinner fa-spin"></i> Loading gyms...
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <button class="page-btn prev-page" disabled>
+                        <i class="fas fa-chevron-left"></i> Previous
+                    </button>
+                    <div class="page-numbers">
+                        <button class="page-number active">1</button>
+                        <button class="page-number">2</button>
+                    </div>
+                    <button class="page-btn next-page">
+                        Next <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <h3>Stay Updated with New MMA Gyms</h3>
+                <p>Join our newsletter to get notified about new gyms and promotions in your area.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <h2>MMA<span class="accent">.Cafe</span></h2>
+                    </div>
+                    <p>Find the perfect MMA gym to begin or continue your martial arts journey.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Explore</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Find Gyms</a></li>
+                        <li><a href="#">Martial Arts</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Popular States</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">California</a></li>
+                        <li><a href="#">Texas</a></li>
+                        <li><a href="#">New York</a></li>
+                        <li><a href="#">Florida</a></li>
+                        <li><a href="#">Nevada</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contribute</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Add a Gym</a></li>
+                        <li><a href="#">Write a Review</a></li>
+                        <li><a href="#">Claim Your Listing</a></li>
+                        <li><a href="#">Advertise With Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    &copy; 2025 MMA.Cafe. All rights reserved.
+                </div>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Template for Gym Modal -->
+    <div id="gym-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div id="modal-container"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
